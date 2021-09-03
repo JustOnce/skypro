@@ -1,0 +1,6 @@
+type: edu
+files:
+- name: __init__.py
+  visible: false
+- name: form.html
+  visible: true

@@ -1,0 +1,407 @@
+{
+  "environment" : "unittest",
+  "summary" : "This is an introductory Python course.\n- The course will be most beneficial for beginner-level Python learners.\n- The course covers core Python features.\n- It contains hands-on examples of Python code implementation and exercises to practice new skills.\n- The course is based on the author's personal experience in Python development.",
+  "title" : "Flask Skypro",
+  "authors" : [
+    "Денис Никаноров"
+  ],
+  "programming_language" : "Python",
+  "language" : "en",
+  "course_type" : "PyCharm",
+  "items" : [
+    {
+      "title" : "lesson10",
+      "task_list" : [
+        {
+          "name" : "task2",
+          "files" : {
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "from lesson10.task2.task import app\nfrom lesson10.utils import SkyproTestCase\n\n\nclass TestCase(SkyproTestCase):\n    def test_sort(self):\n        with app.test_client() as client:\n            resp = client.get('/sort/')\n            self.assertNotEqual(404, resp.status_code, msg='Представление должно работать по урлу /sort/')\n\n            resp = client.get('/sort/?key=first_name&direction=desc')\n            self.assertNotEqual(400, resp.status_code, msg='Представление должно принимать параметры key и direction')\n\n            resp = client.get('/sort/?key=first_name&direction=desc')\n            expected = 'Larsen Solis'\n\n            self.assertEqual(expected, resp.get_data(True),\n                             msg=f'При сортировке по first_name по убыванию первым в списке должен быть {expected}')\n\n            resp = client.get('/sort/?key=last_name&direction=desc')\n            expected = 'Wong Gordon'\n\n            self.assertEqual(expected, resp.get_data(True),\n                             msg=f'При сортировке по last_name по убыванию первым в списке должен быть {expected}')\n\n            resp = client.get('/sort/?key=last_name&direction=asc')\n            expected = 'Battle Hester'\n\n            self.assertEqual(expected, resp.get_data(True),\n                             msg=f'При сортировке по last_name по возрастанию первым в списке должен быть {expected}')\n\n            resp = client.get('/sort/?key=first_name&direction=asc')\n            expected = 'Rivers Castaneda'\n\n            self.assertEqual(expected, resp.get_data(True),\n                             msg=f'При сортировке по first_name по возрастанию первым в списке должен быть {expected}')\n"
+            },
+            "task.py" : {
+              "name" : "task.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "from json import dumps\n\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n\ndef load_users():\n    from lesson10.task2.users import users\n    return users\n\n\n@app.route('/filter/')\ndef filter_dict():\n    users = load_users()\n    result = []\n\n    for user in users:\n        for key, value in request.args.items():\n            if key not in user:\n                continue\n\n            if user[key].lower() != value.lower():\n                break\n        else:\n            result.append(user)\n\n    return dumps(result)\n\n\ndef sort_dict():\n    users = load_users()\n\n    return f''\n\n\nif __name__ == '__main__':\n    app.run()\n"
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "users.json" : {
+              "name" : "users.json",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "[\n  {\n    \"first_name\": \"Gordon\",\n    \"last_name\": \"Wong\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Church\",\n    \"last_name\": \"Blankenship\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Hester\",\n    \"last_name\": \"Battle\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Miranda\",\n    \"last_name\": \"Conner\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Meghan\",\n    \"last_name\": \"Strickland\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Osborne\",\n    \"last_name\": \"Jenkins\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Solis\",\n    \"last_name\": \"Larsen\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"May\",\n    \"last_name\": \"Mcconnell\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Castaneda\",\n    \"last_name\": \"Rivers\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Rush\",\n    \"last_name\": \"Conway\",\n    \"gender\": \"male\"\n  }\n]"
+            },
+            "users.py" : {
+              "name" : "users.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "users = [\n  {\n    \"first_name\": \"Gordon\",\n    \"last_name\": \"Wong\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Church\",\n    \"last_name\": \"Blankenship\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Hester\",\n    \"last_name\": \"Battle\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Miranda\",\n    \"last_name\": \"Conner\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Meghan\",\n    \"last_name\": \"Strickland\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Osborne\",\n    \"last_name\": \"Jenkins\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Solis\",\n    \"last_name\": \"Larsen\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"May\",\n    \"last_name\": \"Mcconnell\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Castaneda\",\n    \"last_name\": \"Rivers\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Rush\",\n    \"last_name\": \"Conway\",\n    \"gender\": \"male\"\n  }\n]\n"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 2</h2>\n\n<p>\n    Есть приложение, состоящее из 2 представлений: filter_dict и sort_dict.<br>\n    <b>filter_dict</b> работает по урлу <i>/filter/</i> и фильтрует данные в списке пользователей<br>\n    <b>sort_dict</b> работает по урлу <i>/sort/</i> и сортирует список пользователей по заданным параметрам.<br>\n</p>\n<p>\n    Если вызвать урл <i>/filter/?gender=female</i>, то приложение выводит список пользователей, у которых значение поля\n    gender равно female.<br><br>\n    Если вызвать урл <i>/filter/?first_name=may&gender=female</i>, то приложение выведет список пользователей,\n    у которых значение поля gender соответствует female, а значение поля first_name - may.<br><br>\n    Регистр переданных параметров и значений игнорируется.<br>\n    <br>\n    Ваша задача доработать функцию <b>sort_dict</b>, чтобы она сортировала список пользователей,\n    выводила фамилию и имя первого пользователя в отсортированном списке и\n    обрабатывала следующий формат запроса:<br><br>\n    <i>/sort/?key=ключ&direction=направление</i>, где\n    <ul>\n        <li><i>ключ</i> - это название одного из полей в объекте пользователя (first_name, last_name, gender),</li>\n        <li><i>direction</i> - это направление сортировки (asc - по возрастанию, desc - по убыванию).</li>\n    </ul>\n\n    Например, при вызове урла <i>/sort/?key=first_name&direction=desc</i> список пользователей будет отсортирован\nпо убыванию по полю first_name, а представление вернет <i>Larsen Solis</i>.\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task1",
+          "files" : {
+            "task.py" : {
+              "name" : "task.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "from flask import Flask\n\napp = Flask(__name__)\n\n\n@app.route('/hello/')\n@app.route('/hello/<first_name>/')\n@app.route('/hello/<first_name>/<last_name>/')\ndef hello(first_name=None, last_name=None):\n    name = 'Anonymous'\n\n    if first_name and last_name:\n        name = f'{first_name} {last_name}'\n    elif first_name:\n        name = first_name\n\n    return f'Hello {name}!'\n\n\nif __name__ == '__main__':\n    app.run()\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 1</h2>\n\n<p>\n    У вас есть небольшое приложение, которое получает из сегментов маршрута имя и фамилию пользователя, и\n    приветствует пользователя в разной форме в зависимости от переданных параметров.\n    Запустите его, изучите код и ответьте на вопросы.\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task4",
+          "files" : {
+            "task.py" : {
+              "name" : "task.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "from flask import Flask\n\napp = Flask(__name__)\n\n\ndef load_users():\n    from lesson10.task4.users import users\n    return users\n\n\n# TODO добавить маршрут для получения целочисленного индекса из сегмента урл\n\ndef get_user(idx):\n    users = load_users()\n\n    if idx < 1 or idx > len(users):\n        return ''  # TODO вернуть 404 код ответа и строку 'Не найдено'\n\n    return f''  # TODO вернуть фамилию и имя пользователя с индексом idx - 1\n\n\nif __name__ == '__main__':\n    app.run()\n"
+            },
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "import unittest\n\nfrom lesson10.task4.task import app\nfrom lesson10.task4.users import users\nfrom lesson10.utils import SkyproTestCase\n\n\nclass TestCase(SkyproTestCase):\n    def test_users(self):\n        with app.test_client() as client:\n            resp = client.get('/users/1/')\n            self.assertNotEqual(resp.status_code, 404, msg='Представление должно работать по урлу /users/1/')\n\n            resp = client.get('/users/fsdfsd/')\n            self.assertEqual(resp.status_code, 404,\n                             msg='Представление должно обрабатывать сегмент урла как целое число')\n\n            not_found_str = 'Не найдено'\n\n            for i in (0, 11, 20, 100, 1000):\n                resp = client.get(f'/users/{i}/')\n\n                self.assertEqual(resp.status_code, 404,\n                                 msg=f'Если по индексу не найден пользователь, то код ответ должен быть 404')\n                self.assertEqual(resp.get_data(True), not_found_str,\n                                 msg=f'Если по индексу не найден пользователь, то ответ должен быть {not_found_str}')\n\n            for i, user in enumerate(users, start=1):\n                resp = client.get(f'/users/{i}/')\n                expected = f'{user[\"last_name\"]} {user[\"first_name\"]}'\n\n                self.assertEqual(resp.status_code, 200,\n                                 msg=f'По индексу {i} должен возвращаться код ответа 200')\n                self.assertEqual(resp.get_data(True), expected,\n                                 msg=f'По индексу {i} должен возвращаться ответ {expected}')\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "users.py" : {
+              "name" : "users.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "users = [\n  {\n    \"first_name\": \"Gordon\",\n    \"last_name\": \"Wong\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Church\",\n    \"last_name\": \"Blankenship\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Hester\",\n    \"last_name\": \"Battle\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Miranda\",\n    \"last_name\": \"Conner\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Meghan\",\n    \"last_name\": \"Strickland\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Osborne\",\n    \"last_name\": \"Jenkins\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Solis\",\n    \"last_name\": \"Larsen\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"May\",\n    \"last_name\": \"Mcconnell\",\n    \"gender\": \"female\"\n  },\n  {\n    \"first_name\": \"Castaneda\",\n    \"last_name\": \"Rivers\",\n    \"gender\": \"male\"\n  },\n  {\n    \"first_name\": \"Rush\",\n    \"last_name\": \"Conway\",\n    \"gender\": \"male\"\n  }\n]\n"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 4</h2>\n\n<p>\n    Программисту Гарри поставили задачу реализовать приложение, которое\n    <ol>\n        <li>Читает из users.py список пользователей.</li>\n        <li>Возвращает по урлу /users/&lt;index&gt;/ фамилию и имя пользователя по индексу из списка пользователей.</li>\n        <li>Если такого индекса нет в списке, то приложение должно возвращать строку 'Не найдено' и код ответа 404.</li>\n        <li>Индексы должны начинаться с 1, а не с 0, как в списках Python</li>\n    </ol>\n\n    Гарри трудился всю ночь, чтобы успеть к утреннему дедлайну, но уснул и не дописал часть кода. К счастью,\n    ты пришел в офис пораньше и можешь помочь ему закончить начатую работу вовремя.\n    <br>\n    <br>\n    Заполни все TODO и реализуй до конца представление <b>get_user</b>.\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task5",
+          "files" : {
+            "task.py" : {
+              "name" : "task.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "from flask import Flask\n\napp = Flask(__name__)\n\nvocab = {\n    'cat': 'dog',\n    'python': 'go',\n    'flask': 'django',\n    'postgresql': 'mysql',\n    'junior': 'middle'\n}\n\n\nif __name__ == '__main__':\n    app.run()\n"
+            },
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "from lesson10.task5.task import app, vocab\nfrom lesson10.utils import SkyproTestCase\n\n\nclass TestCase(SkyproTestCase):\n    def test_index(self):\n        with app.test_client() as client:\n            for key, value in vocab.items():\n                resp = client.get(f'/{key}/')\n                expected = f'Значение для ключа {key} - {value}'\n\n                self.assertEqual(resp.status_code, 200,\n                                 msg=f'Урл /{key}/ должен возвращать код ответа 200')\n                self.assertEqual(resp.get_data(True), expected,\n                                 msg=f'Урл /{key}/ должен возвращать \"{expected}\"')\n\n            resp = client.get(f'/not_vacab_value/')\n            expected = 'Ключ не найден'\n\n            self.assertEqual(resp.status_code, 404,\n                             msg=f'Для значений не из словаря представление должно возвращать код ответа 404')\n            self.assertEqual(resp.get_data(True), expected,\n                             msg=f'Для значений не из словаря представление должно возвращать \"{expected}\"')\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 5</h2>\n\n<p>\n    Дан словарь <i>vocab</i>. Нужно реализовать приложение, которое выполняет поиск по ключу в этом словаре.\n    <br>\n    <br>\n    Напишите представление, которое берет из урла текстовый сегмент, ищет по полученному значению сегмента ключ в\n    словаре vocab и возвращает “Значение для ключа &lt;значение переданного ключа&gt;: &lt;найденное по этому ключу значение в словаре&gt;”.\n    <br>\n    <br>\n    Если такого ключа нет в словаре, то возвращает строку \"Ключ не найден\" и код ответа 404.\n    <br>\n    <br>\n    Например, по урлу /cat/ приложение ответит \"Значение для ключа cat - dog\".\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        }
+      ],
+      "type" : "lesson"
+    },
+    {
+      "title" : "lesson10.2",
+      "task_list" : [
+        {
+          "name" : "task1",
+          "files" : {
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "polls.html" : {
+              "name" : "polls.html",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "<!doctype html>\n<html lang=\"ru\">\n    <head>\n        <title>Опрос</title>\n    </head>\n    <body>\n        <h1>Опрос</h1>\n        <form method=\"post\">\n            <p><b>Какой ваш любый язык программирования?</b></p>\n            <p>\n                <input type=\"radio\" name=\"answer\" value=\"python\">Python<br>\n                <input type=\"radio\" name=\"answer\" value=\"java\">Java<br>\n                <input type=\"radio\" name=\"answer\" value=\"c++\">C++\n            </p>\n            <p><input type=\"submit\"></p>\n        </form>\n        <div>\n            <p><i>Результаты:</i></p>\n            <a href=\"details.html\"><img src=\"results.jpg\" alt=\"Результаты\"/></a>\n        </div>\n    </body>\n</html>"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 1</h2>\n\n<p>\n    У вас есть небольшая html-страница с формой онлайн-опроса polls.html.<br>\n    Ознакомьтесь с его кодом и ответьте на вопросы.\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task2",
+          "files" : {
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "text.html" : {
+              "name" : "text.html",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "<!doctype html>\n<html lang=\"ru\">\n    <head></head>\n    <body>\n        Заголовок третьего уровня\n\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n        URL изображения https://assets.justinmind.com/wp-content/uploads/2018/11/Lorem-Ipsum-alternatives-768x492.png\n\n        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n        Читать далее..\n    </body>\n</html>"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 2</h2>\n\n<p>\n    Есть не до конца размеченная html-страница text.html.<br><br>\n    Необходимо, используя изученные html теги оформить текст, как изображено на скриншоте, и ответить на вопросы.<br><br>\n    <img src=\"image1.png\">\n</p>\n\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task3",
+          "files" : {
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "form.html" : {
+              "name" : "form.html",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "<!doctype html>\n<html lang=\"ru\">\n    <head>\n        <title>Форма</title>\n    </head>\n    <body>\n        <h1>HTML-форма</h1>\n        <form method=\"post\">\n        \t<p>\n              <label for=\"name\">Имя:</label>\n              <input type=\"text\" name=\"name\" value=\"\"><br><br>\n\n              <label for=\"name\">Возраст:</label>\n              <input type=\"number\" name=\"age\" value=\"\"><br><br>\n\n              <input type=\"submit\">\n            </p>\n        </form>\n    </body>\n</html>"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 3</h2>\n<p>\n    У вас есть небольшая html-форма form.html.<br>\n    Ознакомьтесь с ее кодом и ответьте на вопросы.<br>\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task4",
+          "files" : {
+            "task.py" : {
+              "name" : "task.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "from flask import Flask, render_template, request\n\nfrom const import CANDIDATES\napp = Flask(__name__)\n\n\n@app.route('/', methods=['GET'])\ndef index():\n    result = CANDIDATES[:]\n\n    if request.method == 'GET':\n        position = request.args.get('position')\n\n        if position:\n            result = []\n\n            for candidate in CANDIDATES:\n                if position.lower() in candidate['position'].lower():\n                    result.append(candidate)\n\n    return render_template('candidates.html', candidates=result)\n\n\nif __name__ == '__main__':\n    app.run()\n"
+            },
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "import unittest\n\nfrom task import sum\n\n\n# todo: replace this with an actual test\nclass TestCase(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(sum(1, 2), 3, msg=\"adds 1 + 2 to equal 3\")\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "templates/candidates.html" : {
+              "name" : "templates/candidates.html",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "<!doctype html>\n<html lang=\"ru\">\n    <head>\n        <title>Список кандидатов</title>\n    </head>\n    <body>\n        <form>\n            <label>Должность <input name=\"position\" type=\"text\"></label>\n            <button type=\"submit\">Найти</button>\n        </form>\n\n        <h1>Список кандидатов</h1>\n\n        {% for candidate in candidates %}\n            <p>\n                <b>{{ candidate.name }}</b><br/><br/>\n                <i>Должность</i>: {{ candidate.position }}<br/>\n                <i>Полных лет</i>: {{ candidate.age }}<br/>\n                <i>Пол</i>: {{ candidate.gender }}<br/>\n                <i>Навыки</i>: {{ candidate.skills }}<br/>\n            </p>\n        {% endfor %}\n    </body>\n</html>"
+            },
+            "const.py" : {
+              "name" : "const.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "CANDIDATES = [\n  {\n    \"name\": \"Adela Hendricks\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"Go разработчик\",\n    \"gender\": \"female\",\n    \"age\": 40,\n    \"skills\": \"go, python\"\n  },\n  {\n    \"name\": \"Sheri Torres\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"Delphi developer\",\n    \"gender\": \"female\",\n    \"age\": 26,\n    \"skills\": \"Delphi, pascal, fortran, basic\"\n  },\n  {\n    \"name\": \"Burt Stein\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"Team lead\",\n    \"gender\": \"male\",\n    \"age\": 33,\n    \"skills\": \"делегирование, пользваться календарем, обсуждать важные вопросы\"\n  },\n  {\n    \"name\": \"Bauer Adkins\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"CTO\",\n    \"gender\": \"male\",\n    \"age\": 37,\n    \"skills\": \"very important face\"\n  },\n  {\n    \"name\": \"Day Holloway\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"HR manager\",\n    \"gender\": \"male\",\n    \"age\": 35,\n    \"skills\": \"LinkedIn, telegram, spam, spam, spam\"\n  },\n  {\n    \"name\": \"Austin Cochran\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"python-develop\",\n    \"gender\": \"male\",\n    \"age\": 26,\n    \"skills\": \"python, html\"\n  },\n  {\n    \"name\": \"Sheree Love\",\n    \"picture\": \"https://picsum.photos/200\",\n    \"position\": \"Django developer\",\n    \"gender\": \"female\",\n    \"age\": 33,\n    \"skills\": \"Python, Django, flask\"\n  }\n]"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 4</h2>\n\n<p>\n    У вас есть исходный код приложения, которое читает данные соискателей из файла, и выполняет поиск по\n    должности среди соискателей. Пользователь указывает должность, которую он ищет с помощью GET-формы.\n    <br><br>\n    Вам требуется сделать аналогичное приложение, но, чтобы форма и представление обрабатывали POST-запрос.\n    <br><br>\n\n    Каждая запись о соискателе содержит следующие поля:\n    <ul>\n        <li>name - ФИО</li>\n        <li>picture - фото кандидата</li>\n        <li>position - должность</li>\n        <li>skills - список навыков</li>\n        <li>age - возраст</li>\n    </ul>\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task5",
+          "files" : {
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "import unittest\n\nfrom task import sum\n\n\n# todo: replace this with an actual test\nclass TestCase(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(sum(1, 2), 3, msg=\"adds 1 + 2 to equal 3\")\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "wiki.html" : {
+              "name" : "wiki.html",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Python</title>\n</head>\n<body>\nСодержание\n\nВступление\nИстория\nКонцепция и философия\nТипы и структуры данных\nГвидо с напитком\n\n<!--Вступление-->\nPython — высокоуровневый язык программирования общего назначения с динамической строгой типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных на нём программ. Язык является полностью объектно-ориентированным — всё является объектами. Необычной особенностью языка является выделение блоков кода пробельными отступами. Синтаксис ядра языка минималистичен, за счёт чего на практике редко возникает необходимость обращаться к документации. Сам же язык известен как интерпретируемый и используется в том числе для написания скриптов. Недостатками языка являются зачастую более низкая скорость работы и более высокое потребление памяти написанных на нём программ по сравнению с аналогичным кодом, написанным на компилируемых языках, таких как Си или C++.\n<!--Вступление-->\n\n\n<!--История-->\nЗадумка по реализации языка появилась в конце 1980-х годов, а разработка его реализации началась в 1989 году сотрудником голландского института CWI Гвидо ван Россумом. Для распределённой операционной системы Amoeba требовался расширяемый скриптовый язык, и Гвидо начал разрабатывать Python на досуге, позаимствовав некоторые наработки для языка ABC (Гвидо участвовал в разработке этого языка, ориентированного на обучение программированию). В феврале 1991 года Гвидо опубликовал исходный текст в группе новостей alt.sources. С самого начала Python проектировался как объектно-ориентированный язык.\n<!--История-->\n\n\n<!--Концепция и философия-->\nЯзык использует динамическую типизацию вместе с подсчётом ссылок и циклический сборщик мусора для менеджмента памяти. Также есть динамические разрешения имен (динамическое связывание), которые связывают имена методов и переменных во время выполнения программы.\n\nPython предлагает поддержку функционального программирования в традициях Лиспа. Так, в Python есть функции filter, map и reduce; также из Лиспа были заимствованы понятия характеристик списков, ассоциативных массивов (словарей), множеств и генераторов списков. Стандартная библиотека содержит два модуля (itertools и functools), реализующие инструменты, заимствованные из Haskell и Standard ML.\n<!--Концепция и философия-->\n\n<!--Типы и структуры данных-->\nPython поддерживает динамическую типизацию, то есть тип переменной определяется только во время исполнения. Поэтому вместо «присваивания значения переменной» лучше говорить о «связывании значения с некоторым именем». К примитивным типам в Python относятся булевый, целое число произвольной точности, число с плавающей запятой и комплексное число. Из контейнерных типов в Python встроены: строка, список, кортеж, словарь и множество. Все значения являются объектами, в том числе функции, методы, модули, классы.\n<!--Типы и структуры данных-->\n\n<!--Гвидо-->\nhttps://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Guido_van_Rossum_OSCON_2006.jpg/800px-Guido_van_Rossum_OSCON_2006.jpg\n<!--Гвидо-->\n\n</body>\n</html>"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 5</h2>\n<p>\n    Разработчик Боб сделал вики-страничку с оглавлением и кратким описанием особенностей языка Python.\n    Он перенес контент в файл wiki.html, но, к сожалению, забыл разметить текст, используя html.\n    <br>\n    <br>\n    Изучите, как работают \"якоря\" у ссылок в html, и помогите забывчивому Бобу.\n    <br><br>\n    В файле wiki.html нужно разметить содержание в виде ненумерованного списка, где каждый элемент содержит ссылку с\n    якорем на соответствующий абзац текста.\n    <br>\n    <br>\n    В итоге должен получиться такой документ:<br>\n    <img src=\"python.png\">\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task6",
+          "files" : {
+            "task.py" : {
+              "name" : "task.py",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "# todo: replace this with an actual task\ndef sum(a, b):\n    return a + b\n"
+            },
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "import unittest\n\nfrom task import sum\n\n\n# todo: replace this with an actual test\nclass TestCase(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(sum(1, 2), 3, msg=\"adds 1 + 2 to equal 3\")\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 6</h2>\n\n<p>\n    Вам необходимо реализовать приложение с представлением index.\n    <br>\n    <br>\n    При GET-запросе это представление должно отображать форму с текстовым полем с именем search.\n    <br>\n    <br>\n    При отправке формы на сервер методом POST, сервер возвращает html-документ с текстом\n    <b>Результаты по запросу <i>search</i>.</b>,\n    который отображается как заголовок первого уровня, а значение search - курсивом.\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        },
+        {
+          "name" : "task7",
+          "files" : {
+            "tests/test_task.py" : {
+              "name" : "tests/test_task.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : "import unittest\n\nfrom task import sum\n\n\n# todo: replace this with an actual test\nclass TestCase(unittest.TestCase):\n    def test_add(self):\n        self.assertEqual(sum(1, 2), 3, msg=\"adds 1 + 2 to equal 3\")\n"
+            },
+            "__init__.py" : {
+              "name" : "__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "tests/__init__.py" : {
+              "name" : "tests/__init__.py",
+              "placeholders" : [ ],
+              "is_visible" : false,
+              "text" : ""
+            },
+            "form.html" : {
+              "name" : "form.html",
+              "placeholders" : [ ],
+              "is_visible" : true,
+              "text" : "<!DOCTYPE html>\n<html lang=\"ru\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <from>\n      <p/>Пример формы\n      <label value=\"Ваше имя:\"></br>\n      <input type=\"text\">Мое имя</input><br><br>\n      <button type=\"submit\" value=\"Отправить\">\n    </from>\n  </head>\n</html>"
+            }
+          },
+          "description_text" : "<html>\n\n<h2>Задача 7</h2>\n\n<p>\n    Разработчик Боб снова поспешил и разметил документ form.html с ошибками.\n    <br>\n    <br>\n    Найди и исправь эти ошибки, чтобы успешно закрыть задачу в срок.\n</p>\n</html>",
+          "description_format" : "HTML",
+          "feedback_link" : {
+            "link_type" : "STEPIK"
+          },
+          "task_type" : "edu"
+        }
+      ],
+      "type" : "lesson"
+    }
+  ],
+  "additional_files" : [
+    {
+      "name" : "lesson10/utils.py",
+      "placeholders" : [ ],
+      "is_visible" : true,
+      "text" : "import unittest\n\n\nclass StatMixin:\n    def send_stat(self, result):\n        ok = result.wasSuccessful()\n        errors = result.errors\n        failures = result.failures\n\n        print('ok' if ok else 'not ok')\n        print('errors', errors)\n        print('failures', failures)\n\n\nclass SkyproTestCase(StatMixin, unittest.TestCase):\n    def run(self, *args, **kwargs):\n        result = super().run(*args, **kwargs)\n\n        self.send_stat(result)\n\n        return result\n"
+    },
+    {
+      "name" : "requeremts.txt",
+      "placeholders" : [ ],
+      "is_visible" : true,
+      "text" : "flask\nbeautifulsoup4\nhtml5lib"
+    }
+  ],
+  "version" : 11
+}

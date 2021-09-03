@@ -9,15 +9,15 @@ class TestCase(SkyproTestCase):
                 resp = client.get(f'/{key}/')
                 expected = f'Значение для ключа {key} - {value}'
 
-                self.assertEqual(resp.status_code, 200,
+                self.assertEqual(200, resp.status_code,
                                  msg=f'Урл /{key}/ должен возвращать код ответа 200')
-                self.assertEqual(resp.get_data(True), expected,
+                self.assertEqual(expected, resp.get_data(True),
                                  msg=f'Урл /{key}/ должен возвращать "{expected}"')
 
             resp = client.get(f'/not_vacab_value/')
             expected = 'Ключ не найден'
 
-            self.assertEqual(resp.status_code, 404,
+            self.assertEqual(404, resp.status_code,
                              msg=f'Для значений не из словаря представление должно возвращать код ответа 404')
-            self.assertEqual(resp.get_data(True), expected,
+            self.assertEqual(expected, resp.get_data(True),
                              msg=f'Для значений не из словаря представление должно возвращать "{expected}"')
