@@ -1,3 +1,8 @@
-# todo: replace this with an actual task
-def sum(a, b):
-    return a + b
+from flask import Flask, request
+
+app = Flask(__name__)
+
+
+
+if __name__ == '__main__':
+    app.run()

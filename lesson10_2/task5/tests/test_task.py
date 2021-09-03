@@ -1,9 +1,9 @@
-import unittest
-
 from bs4 import BeautifulSoup
 
+from lesson10_1.utils import SkyproTestCase
 
-class TestCase(unittest.TestCase):
+
+class TestCase(SkyproTestCase):
     def test_wiki(self):
         with open('wiki.html', 'r') as fh:
             soup = BeautifulSoup(fh.read())
