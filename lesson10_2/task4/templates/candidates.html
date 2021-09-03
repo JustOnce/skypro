@@ -14,10 +14,10 @@
         {% for candidate in candidates %}
             <p>
                 <b>{{ candidate.name }}</b><br/><br/>
-                <i>Должность</i>: {{ candidate.position }}<br/>
-                <i>Полных лет</i>: {{ candidate.age }}<br/>
-                <i>Пол</i>: {{ candidate.gender }}<br/>
-                <i>Навыки</i>: {{ candidate.skills }}<br/>
+                <span class="position"><i>Должность</i>: {{ candidate.position }}</span><br/>
+                <span><i>Полных лет</i>: {{ candidate.age }}</span><br/>
+                <span><i>Пол</i>: {{ candidate.gender }}</span><br/>
+                <span><i>Навыки</i>: {{ candidate.skills }}</span><br/>
             </p>
         {% endfor %}
     </body>

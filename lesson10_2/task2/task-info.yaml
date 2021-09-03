@@ -4,3 +4,5 @@ files:
   visible: false
 - name: text.html
   visible: true
+- name: image1.png
+  visible: true

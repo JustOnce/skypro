@@ -1,5 +1,5 @@
-from lesson10.task2.task import app
-from lesson10.utils import SkyproTestCase
+from lesson10_1.task2.task import app
+from lesson10_1.utils import SkyproTestCase
 
 
 class TestCase(SkyproTestCase):

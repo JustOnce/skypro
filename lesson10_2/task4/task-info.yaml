@@ -1,10 +1,16 @@
 type: edu
 files:
+- name: task.py
+  visible: true
 - name: tests/test_task.py
   visible: false
 - name: __init__.py
   visible: false
 - name: tests/__init__.py
   visible: false
-- name: wiki.html
+- name: templates/candidates.html
   visible: true
+- name: const.py
+  visible: true
+- name: answer.py
+  visible: false
