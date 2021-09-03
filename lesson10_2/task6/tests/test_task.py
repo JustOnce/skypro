@@ -20,7 +20,7 @@ class TestCase(SkyproTestCase):
     def _test_get(self, client):
         resp = client.get('/search/')
 
-        soup = BeautifulSoup(resp.get_data(True))
+        soup = BeautifulSoup(resp.get_data(True), 'html5lib')
 
         forms = soup.find_all('form')
 
@@ -45,7 +45,7 @@ class TestCase(SkyproTestCase):
         search = 'python'
         resp = client.post('/search/', data={'search': search})
 
-        soup = BeautifulSoup(resp.get_data(True))
+        soup = BeautifulSoup(resp.get_data(True), 'html5lib')
 
         all_h1 = soup.find_all('h1')
 

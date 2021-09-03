@@ -6,7 +6,7 @@ from lesson10_1.utils import SkyproTestCase
 class TestCase(SkyproTestCase):
     def test_wiki(self):
         with open('wiki.html', 'r') as fh:
-            soup = BeautifulSoup(fh.read())
+            soup = BeautifulSoup(fh.read(), 'html5lib')
 
             all_b = soup.find_all('b')
 

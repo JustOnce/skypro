@@ -16,7 +16,7 @@ class TestCase(SkyproTestCase):
             self._test_post(client)
 
     def _test_get(self, get_resp):
-        soup = BeautifulSoup(get_resp.get_data(True))
+        soup = BeautifulSoup(get_resp.get_data(True), 'html5lib')
 
         forms = soup.find_all('form')
 
@@ -33,13 +33,9 @@ class TestCase(SkyproTestCase):
                                             ' исходного примера.')
 
     def _test_post(self, client):
-        msg = 'По запросу python должен найтись 1 кандидат. ' \
-              'Проверьте, что вы используете алгоритм поиска из примера, ' \
-              'и обрабатываете параметры не из GET-запроса, а из POST-запроса'
-
         resp = client.post('/', data={'position': 'python'})
 
-        soup = BeautifulSoup(resp.get_data(True))
+        soup = BeautifulSoup(resp.get_data(True), 'html5lib')
 
         all_p = soup.find_all('p')
 
@@ -52,7 +48,7 @@ class TestCase(SkyproTestCase):
 
         resp = client.post('/', data={'position': 'develop'})
 
-        soup = BeautifulSoup(resp.get_data(True))
+        soup = BeautifulSoup(resp.get_data(True), 'html5lib')
 
         all_p = soup.find_all('p')
 
