@@ -1,23 +1,33 @@
-from lesson10_1.task8.task import app, vocab
+from lesson10_1.task8.task import app
+from lesson10_1.task8.users import users
 from lesson10_1.utils import SkyproTestCase
 
 
 class TestCase(SkyproTestCase):
-    def test_index(self):
+    def test_users(self):
         with app.test_client() as client:
-            for key, value in vocab.items():
-                resp = client.get(f'/{key}/')
-                expected = f'Значение для ключа {key} - {value}'
+            resp = client.get('/users/1/')
+            self.assertNotEqual(404, resp.status_code, msg='Представление должно работать по урлу /users/1/')
+
+            resp = client.get('/users/fsdfsd/')
+            self.assertEqual(404, resp.status_code,
+                             msg='Представление должно обрабатывать сегмент урла как целое число')
+
+            not_found_str = 'Не найдено'
+
+            for i in (0, 11, 20, 100, 1000):
+                resp = client.get(f'/users/{i}/')
+
+                self.assertEqual(404, resp.status_code,
+                                 msg=f'Если по индексу не найден пользователь, то код ответ должен быть 404')
+                self.assertEqual(not_found_str, resp.get_data(True),
+                                 msg=f'Если по индексу не найден пользователь, то ответ должен быть {not_found_str}')
+
+            for i, user in enumerate(users, start=1):
+                resp = client.get(f'/users/{i}/')
+                expected = f'{user["last_name"]} {user["first_name"]}'
 
                 self.assertEqual(200, resp.status_code,
-                                 msg=f'Урл /{key}/ должен возвращать код ответа 200')
+                                 msg=f'По индексу {i} должен возвращаться код ответа 200')
                 self.assertEqual(expected, resp.get_data(True),
-                                 msg=f'Урл /{key}/ должен возвращать "{expected}"')
-
-            resp = client.get(f'/not_vacab_value/')
-            expected = 'Ключ не найден'
-
-            self.assertEqual(404, resp.status_code,
-                             msg=f'Для значений не из словаря представление должно возвращать код ответа 404')
-            self.assertEqual(expected, resp.get_data(True),
-                             msg=f'Для значений не из словаря представление должно возвращать "{expected}"')
+                                 msg=f'По индексу {i} должен возвращаться ответ {expected}')

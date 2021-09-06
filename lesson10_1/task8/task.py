@@ -2,16 +2,21 @@ from flask import Flask
 
 app = Flask(__name__)
 
-vocab = {
-    'cat': 'кошка',
-    'python': 'питон',
-    'flask': 'фляга',
-    'developer': 'разработчик',
-    'django': 'вофтпщ',
-    'framework': 'фреймворк',
-    'package': 'библиотека',
-    'library': 'библиотека',
-}
+
+def load_users():
+    from lesson10_1.task8.users import users
+    return users
+
+
+# TODO добавить маршрут для получения целочисленного индекса из сегмента урл
+
+def get_user(idx):
+    users = load_users()
+
+    if idx < 1 or idx > len(users):
+        return ''  # TODO вернуть 404 код ответа и строку 'Не найдено'
+
+    return f''  # TODO вернуть фамилию и имя пользователя с индексом idx - 1
 
 
 if __name__ == '__main__':
