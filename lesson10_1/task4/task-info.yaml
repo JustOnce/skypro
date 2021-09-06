@@ -1,12 +1,20 @@
-type: edu
+type: choice
+is_multiple_choice: true
+options:
+- text: http://127.0.0.1:5000/Python/Master/
+  is_correct: false
+- text: http://127.0.0.1:5000/hello/Python/Master/
+  is_correct: true
+- text: http://127.0.0.1:5000/Master/Python/
+  is_correct: false
+- text: http://127.0.0.1:5000/hello/Master/Python/
+  is_correct: false
+- text: http://127.0.0.1:5000/Python Master/
+  is_correct: false
+- text: http://127.0.0.1:5000/hello/Python Master/
+  is_correct: true
+message_correct: Верно
+message_incorrect: Неверно
 files:
-- name: task.py
-  visible: true
-- name: tests/test_task.py
-  visible: false
 - name: __init__.py
   visible: false
-- name: tests/__init__.py
-  visible: false
-- name: users.py
-  visible: true

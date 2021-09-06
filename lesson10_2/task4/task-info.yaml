@@ -1,16 +1,16 @@
-type: edu
+type: choice
+is_multiple_choice: false
+options:
+- text: button
+  is_correct: false
+- text: div
+  is_correct: false
+- text: submit
+  is_correct: false
+- text: input
+  is_correct: true
+message_correct: Верно
+message_incorrect: Неверно
 files:
-- name: task.py
-  visible: true
-- name: tests/test_task.py
-  visible: false
 - name: __init__.py
-  visible: false
-- name: tests/__init__.py
-  visible: false
-- name: templates/candidates.html
-  visible: true
-- name: const.py
-  visible: true
-- name: answer.py
   visible: false

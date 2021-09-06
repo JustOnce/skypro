@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 
 def load_users():
-    from lesson10_1.task4.users import users
+    from lesson10_1.task7.users import users
     return users
 
 

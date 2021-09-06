@@ -1,0 +1,14 @@
+type: edu
+files:
+- name: tests/test_task.py
+  visible: false
+- name: __init__.py
+  visible: false
+- name: tests/__init__.py
+  visible: false
+- name: wiki.html
+  visible: true
+- name: python.png
+  visible: true
+- name: answer.html
+  visible: false

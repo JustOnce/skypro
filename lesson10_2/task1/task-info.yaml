@@ -1,4 +1,10 @@
-type: edu
+type: choice
+is_multiple_choice: false
+options:
+- text: Код изучен
+  is_correct: true
+message_correct: Верно
+message_incorrect: Неверно
 files:
 - name: __init__.py
   visible: false

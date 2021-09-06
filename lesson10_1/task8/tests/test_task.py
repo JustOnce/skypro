@@ -1,4 +1,4 @@
-from lesson10_1.task5.task import app, vocab
+from lesson10_1.task8.task import app, vocab
 from lesson10_1.utils import SkyproTestCase
 
 

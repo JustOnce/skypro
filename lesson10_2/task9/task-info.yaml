@@ -1,17 +1,15 @@
 type: choice
 is_multiple_choice: true
 options:
-- text: flask run --host=0.0.0.0
-  is_correct: false
-- text: flask run
-  is_correct: false
-- text: flask run -h 0.0.0.0:8000
-  is_correct: false
-- text: flask run -p 8000
+- text: Может быть не задано
   is_correct: true
-- text: flask run --host=127.0.0.1:8000
+- text: post
   is_correct: false
-- text: flask run --port=8000
+- text: get
+  is_correct: true
+- text: POST
+  is_correct: false
+- text: GET
   is_correct: true
 message_correct: Верно
 message_incorrect: Неверно

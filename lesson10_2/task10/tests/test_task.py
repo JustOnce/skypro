@@ -1,5 +1,5 @@
 from lesson10_1.utils import SkyproTestCase
-from lesson10_2.task4.task import app
+from lesson10_2.task10.task import app
 from bs4 import BeautifulSoup
 
 

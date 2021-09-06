@@ -1,5 +1,5 @@
-from lesson10_1.task4.task import app
-from lesson10_1.task4.users import users
+from lesson10_1.task7.task import app
+from lesson10_1.task7.users import users
 from lesson10_1.utils import SkyproTestCase
 
 

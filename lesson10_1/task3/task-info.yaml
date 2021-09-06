@@ -1,13 +1,13 @@
 type: choice
 is_multiple_choice: false
 options:
-- text: button
+- text: Hello Denis None!
   is_correct: false
-- text: div
+- text: Not found
   is_correct: false
-- text: submit
+- text: Hello None Denis!
   is_correct: false
-- text: input
+- text: Hello Denis!
   is_correct: true
 message_correct: Верно
 message_incorrect: Неверно
