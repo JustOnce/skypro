@@ -1,4 +1,4 @@
-from lesson10_1.task6.task import app
+from lesson10_1.task5.task import app
 from lesson10_1.utils import SkyproTestCase
 
 
